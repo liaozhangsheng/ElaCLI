@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>favicon.svg</file>
+        <file>res/QRCode.png</file>
+    </qresource>
+</RCC>
