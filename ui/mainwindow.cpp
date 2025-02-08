@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->setup_ui();
 
     this->init_content();
+    
+    ElaMessageBar::success(ElaMessageBarType::TopRight, "欢迎！", "请填写信息并点击“创建”",
+                           2000, this);
 }
 
 MainWindow::~MainWindow() = default;
@@ -30,8 +33,6 @@ void MainWindow::setup_ui() {
     this->setWindowTitle("ElaCLI");
     this->setWindowIcon(QIcon(":/favicon.svg"));
     this->moveToCenter();
-    ElaMessageBar::information(ElaMessageBarType::TopRight, "欢迎使用！😊", "请填写信息并点击“创建”。", 2000,
-                     this);
 }
 
 void MainWindow::init_content() {
@@ -107,9 +108,9 @@ void MainWindow::init_content() {
                 input_project_name->text(), input_project_path->text(),
                 checkbox_packetio->isChecked(), checkbox_widgettools->isChecked(), msg);
             if (!success) {
-                ElaMessageBar::error(ElaMessageBarType::TopRight, "创建失败！😥", msg, 2000, this);
+                ElaMessageBar::error(ElaMessageBarType::TopRight, "创建失败！", msg, 2000, this);
             } else {
-                ElaMessageBar::success(ElaMessageBarType::TopRight, "创建成功！😍", msg, 2000,
+                ElaMessageBar::success(ElaMessageBarType::TopRight, "创建成功！", msg, 2000,
                                        this);
             }
         });
