@@ -1,13 +1,12 @@
-#include <qobject.h>
-
 #include <QDir>
 #include <QFileDialog>
 #include <QVBoxLayout>
 
-#include "../src/project_generator.hpp"
 #include "ElaPushButton.h"
 #include "ElaMessageBar.h"
 #include "ElaText.h"
+
+#include "../src/project_generator.hpp"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,9 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
       input_project_path(new ElaLineEdit(this)),
       checkbox_packetio(new ElaCheckBox("包含 PacketIO", this)),
       checkbox_widgettools(new ElaCheckBox("包含 WidgetTools", this)) {
-    this->setup_ui();
+    this->_setup_ui();
 
-    this->init_content();
+    this->_init_content();
     
     ElaMessageBar::success(ElaMessageBarType::TopRight, "欢迎！", "请填写信息并点击“创建”",
                            2000, this);
@@ -26,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() = default;
 
-void MainWindow::setup_ui() {
+void MainWindow::_setup_ui() {
     this->setWindowButtonFlags(ElaAppBarType::MinimizeButtonHint | ElaAppBarType::CloseButtonHint);
     this->setFixedSize(550, 350);
     this->setIsFixedSize(true);
@@ -35,7 +34,7 @@ void MainWindow::setup_ui() {
     this->moveToCenter();
 }
 
-void MainWindow::init_content() {
+void MainWindow::_init_content() {
     auto layout_without_margin_and_spacing = [](QBoxLayout *layout) {
         layout->setContentsMargins(32, 0, 32, 0);
         layout->setSpacing(16);
@@ -52,10 +51,10 @@ void MainWindow::init_content() {
             auto text_project_name = new ElaText("项目名称：", this);
             text_project_name->setTextStyle(ElaTextType::Body);
 
-            input_project_name->setFixedHeight(32);
+            this->input_project_name->setFixedHeight(32);
 
             layout_project_name->addWidget(text_project_name);
-            layout_project_name->addWidget(input_project_name);
+            layout_project_name->addWidget(this->input_project_name);
         }
 
         auto *layout_project_path = layout_without_margin_and_spacing(new QHBoxLayout());
@@ -64,7 +63,7 @@ void MainWindow::init_content() {
             auto *text_project_path = new ElaText("项目路径：", this);
             text_project_path->setTextStyle(ElaTextType::Body);
 
-            input_project_path->setFixedHeight(32);
+            this->input_project_path->setFixedHeight(32);
 
             auto *btn_browse = new ElaPushButton("浏览", this);
             btn_browse->setFixedSize(64, 32);
@@ -78,20 +77,20 @@ void MainWindow::init_content() {
             });
 
             layout_project_path->addWidget(text_project_path);
-            layout_project_path->addWidget(input_project_path);
+            layout_project_path->addWidget(this->input_project_path);
             layout_project_path->addWidget(btn_browse);
         }
 
         auto *layout_component = layout_without_margin_and_spacing(new QHBoxLayout());
 
         {
-            checkbox_packetio->setChecked(true);
+            this->checkbox_packetio->setChecked(true);
 
-            checkbox_widgettools->setChecked(true);
+            this->checkbox_widgettools->setChecked(true);
 
             layout_component->addStretch();
-            layout_component->addWidget(checkbox_packetio);
-            layout_component->addWidget(checkbox_widgettools);
+            layout_component->addWidget(this->checkbox_packetio);
+            layout_component->addWidget(this->checkbox_widgettools);
             layout_component->addStretch();
         }
 
@@ -105,8 +104,8 @@ void MainWindow::init_content() {
         connect(btn_create, &ElaPushButton::clicked, [this]() {
             QString msg;
             bool success = ProjectGenerator::generate(
-                input_project_name->text(), input_project_path->text(),
-                checkbox_packetio->isChecked(), checkbox_widgettools->isChecked(), msg);
+                this->input_project_name->text(), this->input_project_path->text(),
+                this->checkbox_packetio->isChecked(), this->checkbox_widgettools->isChecked(), msg);
             if (!success) {
                 ElaMessageBar::error(ElaMessageBarType::TopRight, "创建失败！", msg, 2000, this);
             } else {

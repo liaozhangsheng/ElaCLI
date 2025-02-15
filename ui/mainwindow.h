@@ -12,11 +12,11 @@ public:
     
     ~MainWindow();
 
-    void setup_ui();
-
-    void init_content();
-
 private:
+    void _setup_ui();
+
+    void _init_content();
+
     ElaLineEdit *input_project_name;
     ElaLineEdit *input_project_path;
     ElaCheckBox *checkbox_packetio;

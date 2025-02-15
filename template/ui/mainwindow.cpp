@@ -7,14 +7,14 @@
 #include "ElaText.h"
 
 MainWindow::MainWindow(QWidget *parent) : ElaWidget(parent) {
-    this->setup_ui();
+    this->_setup_ui();
 
-    this->init_content();
+    this->_init_content();
 }
 
 MainWindow::~MainWindow() = default;
 
-void MainWindow::setup_ui() {
+void MainWindow::_setup_ui() {
     this->setFixedSize(400, 600);
     this->setIsFixedSize(true);
     this->setWindowTitle("MainWindow");
@@ -22,7 +22,7 @@ void MainWindow::setup_ui() {
     this->moveToCenter();
 }
 
-void MainWindow::init_content() {
+void MainWindow::_init_content() {
     auto *layout_main = new QVBoxLayout(this);
     layout_main->setContentsMargins(0, 64, 0, 64);
 

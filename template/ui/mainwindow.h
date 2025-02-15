@@ -10,9 +10,8 @@ public:
 
     ~MainWindow();
 
-    void setup_ui();
-
-    void init_content();
-
 private:
+    void _setup_ui();
+
+    void _init_content();
 };
